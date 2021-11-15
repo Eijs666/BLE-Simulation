@@ -5,12 +5,15 @@ using UnityEngine.AI; //Implementing the AI library
 
 public class Passenger : MonoBehaviour
 {
-    BeaconTracker BT;
+    BeaconTracker BT; //Literally the beacon - Come on!
 
     NavMeshAgent agent; //create variable for the passenger body
+
+    //Targets- passenger walks to these targets
     public Transform Beacon; //Attach the target position in the Unity Editor
     public Transform Exit; //Attach the exit position in the Unity Editor
-
+    public Transform ReaderIn; //Attach the Rejsekort Reader In position
+    public Transform ReaderOut; //Attach the Rejsekort Reader Out position
 
     void Awake()
     {
@@ -29,6 +32,58 @@ public class Passenger : MonoBehaviour
     {
         //Calculate distance
         float dist = Vector3.Distance(agent.transform.position, Beacon.transform.position);
+
+        //Calculate distance to reader In
+        float distToReaderIn = Vector3.Distance(agent.transform.position, ReaderIn.transform.position);
+        //Calculate distance to reader Out
+        float distToReaderOut = Vector3.Distance(agent.transform.position, ReaderOut.transform.position);
+
+        if(distToReaderIn < 2)
+        {
+            //Get the Renderer component from the new cube
+            var cubeRenderer = agent.GetComponent<Renderer>();
+
+            //Call SetColor using the shader property name "_Color" and setting the color to red
+            cubeRenderer.material.SetColor("_Color", Color.blue);
+
+            //Stop for 1 second
+            StartCoroutine(walkAfterPause()); //Calling pause method
+            EnterBus();
+            
+        }
+        else //Reset
+        {
+            //Get the Renderer component from the new cube
+            var cubeRenderer = agent.GetComponent<Renderer>();
+
+            //Call SetColor using the shader property name "_Color" and setting the color to red
+            cubeRenderer.material.SetColor("_Color", Color.white);
+        }
+
+        if (distToReaderOut < 2)
+        {
+            //Get the Renderer component from the new cube
+            var cubeRenderer = agent.GetComponent<Renderer>();
+
+            //Call SetColor using the shader property name "_Color" and setting the color to red
+            cubeRenderer.material.SetColor("_Color", Color.blue);
+
+            //Stop for 1 second
+            StartCoroutine(walkAfterPause()); //Calling pause method
+            ExitBus();
+
+        }
+        else //Reset
+        {
+            //Get the Renderer component from the new cube
+            var cubeRenderer = agent.GetComponent<Renderer>();
+
+            //Call SetColor using the shader property name "_Color" and setting the color to red
+            cubeRenderer.material.SetColor("_Color", Color.white);
+        }
+
+
+
         if (dist < 7) //Start tracking the beacon time
         {
             BT.trackBeacon = true;
@@ -47,8 +102,17 @@ public class Passenger : MonoBehaviour
     }
     void ExitBus() //Move to exit
     {
+        agent.isStopped = false;
         agent.SetDestination(Exit.position); //Move AI agent (passenger) to the bus 
         print("Exit");
+    }
+
+    //Method that allows us to stop code or delay for 1 second
+    IEnumerator walkAfterPause()
+    {
+        agent.isStopped = true;
+        yield return new WaitForSeconds(1f); //Wait 1 second - then execute code under this line
+        agent.isStopped = false;
     }
 
 }
