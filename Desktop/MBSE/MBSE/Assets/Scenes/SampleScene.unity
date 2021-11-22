@@ -277,12 +277,13 @@ MonoBehaviour:
   bus: {fileID: 1471627327}
   Beacon: {fileID: 449293438}
   Exit: {fileID: 129538963}
-  ReaderIn: {fileID: 89203009}
-  ReaderOut: {fileID: 608559985}
-  counter: 0
+  CheckIn: {fileID: 89203009}
+  CheckOut: {fileID: 608559985}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0
+  goToExit: 0
+  enterBus: 0
 --- !u!65 &66023282
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1161,7 +1162,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242228750}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2243,12 +2244,13 @@ MonoBehaviour:
   bus: {fileID: 1471627327}
   Beacon: {fileID: 449293438}
   Exit: {fileID: 129538963}
-  ReaderIn: {fileID: 89203009}
-  ReaderOut: {fileID: 608559985}
-  counter: 0
+  CheckIn: {fileID: 89203009}
+  CheckOut: {fileID: 608559985}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0
+  goToExit: 0
+  enterBus: 0
 --- !u!65 &710694289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2883,7 +2885,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137854723}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3224,7 +3226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386600161}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.425999, y: -4.5899997, z: -0.12000275}
+  m_LocalPosition: {x: 12.49, y: -4.82, z: -8.43}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1720973937}
@@ -3247,12 +3249,13 @@ MonoBehaviour:
   bus: {fileID: 1471627327}
   Beacon: {fileID: 449293438}
   Exit: {fileID: 129538963}
-  ReaderIn: {fileID: 89203009}
-  ReaderOut: {fileID: 608559985}
-  counter: 0
+  CheckIn: {fileID: 89203009}
+  CheckOut: {fileID: 608559985}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0
+  goToExit: 0
+  enterBus: 0
 --- !u!195 &1386600164
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3689,6 +3692,7 @@ MonoBehaviour:
   Beacon: {fileID: 449293438}
   startDriving: 0
   isDriving: 0
+  Rejsekort: 0
 --- !u!1 &1502195582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3764,12 +3768,13 @@ MonoBehaviour:
   bus: {fileID: 1471627327}
   Beacon: {fileID: 449293438}
   Exit: {fileID: 129538963}
-  ReaderIn: {fileID: 89203009}
-  ReaderOut: {fileID: 608559985}
-  counter: 0
+  CheckIn: {fileID: 89203009}
+  CheckOut: {fileID: 608559985}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0
+  goToExit: 0
+  enterBus: 0
 --- !u!65 &1502195586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4703,12 +4708,13 @@ MonoBehaviour:
   bus: {fileID: 1471627327}
   Beacon: {fileID: 449293438}
   Exit: {fileID: 129538963}
-  ReaderIn: {fileID: 89203009}
-  ReaderOut: {fileID: 608559985}
-  counter: 0
+  CheckIn: {fileID: 89203009}
+  CheckOut: {fileID: 608559985}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0
+  goToExit: 0
+  enterBus: 0
 --- !u!65 &1908950040
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -22,8 +22,8 @@ public class BeaconTracker : MonoBehaviour
     {
         if (trackBeacon) //Start tracking BeaconTime
         {
-            currentTime = currentTime + 1 * Time.deltaTime;
-            countdownText.text = currentTime.ToString(gameObject.name + " check-in: "  + currentTime);
+            currentTime += 1 * Time.deltaTime;
+            countdownText.text = currentTime.ToString("Check-in " + Mathf.RoundToInt(currentTime));
         }
         else { return; } //Stop tracking BeaconTime
 

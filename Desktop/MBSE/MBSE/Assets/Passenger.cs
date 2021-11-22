@@ -13,28 +13,33 @@ public class Passenger : MonoBehaviour
     //Targets- passenger walks to these targets
     public Transform Beacon; //Attach the target position in the Unity Editor
     public Transform Exit; //Attach the exit position in the Unity Editor
-    public Transform ReaderIn; //Attach the Rejsekort Reader In position
-    public Transform ReaderOut; //Attach the Rejsekort Reader Out position
-    
-    bool checkIn = false;
+    public Transform CheckIn; //Attach the Rejsekort Reader In position
+    public Transform CheckOut; //Attach the Rejsekort Reader Out position
 
-    public int counter = 0;
-    public bool nearBeacon = false;
-    public bool driveBus = false;
-    public bool thisIsAMess = false;
+    public bool nearBeacon = false; // Used to only add one passenger 
+    public bool driveBus = false; // Whether bus is driving or not
+    public bool thisIsAMess = false; // Can't remember why
+    public bool goToExit = false; // For BLE, just ensure they go towards exit
+    public bool enterBus = false; // For BLE, to ensure EnterBus() is only called once 
 
-    static List<int> passengersInBus = new List<int>();
+    static List<int> passengersInBus = new List<int>(); // List of passengers in bus (near beacon)
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>(); //Get the AI agent component
-        BT = GetComponent<BeaconTracker>();
+        BT = GetComponent<BeaconTracker>(); //Get BT component
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        EnterBus();
+        if(bus.Rejsekort) // if Rejsekort is used go towards front door
+        {
+            agent.SetDestination(CheckIn.position);
+        } else // else enter from any door
+        {
+            EnterBus();
+        }
     }
 
     // Update is called once per frame
@@ -44,161 +49,152 @@ public class Passenger : MonoBehaviour
         float dist = Vector3.Distance(agent.transform.position, Beacon.transform.position);
 
         //Calculate distance to reader In
-        float distToReaderIn = Vector3.Distance(agent.transform.position, ReaderIn.transform.position);
+        float distToReaderIn = Vector3.Distance(agent.transform.position, CheckIn.transform.position);
         //Calculate distance to reader Out
-        float distToReaderOut = Vector3.Distance(agent.transform.position, ReaderOut.transform.position);
+        float distToReaderOut = Vector3.Distance(agent.transform.position, CheckOut.transform.position);
 
-        if (distToReaderIn < 2)
+        // This is the check-in of a passenger. Will only be called if Rejsekort is used. 
+        if (distToReaderIn < 2 && bus.Rejsekort)
         {
-            /*
-            if (checkIn == false)
-            {
-                checkIn = true;
-                passengersInBus.Insert(0, 1);
-                print("Size of list " + passengersInBus.Count);
-                if (passengersInBus.Count == 5)
-                {
-                    bus.startDriving = true;
-                    print("Bus should drive");
-                    
-                }
-            }
-            */
-
             //Get the Renderer component from the new cube
             var cubeRenderer = agent.GetComponent<Renderer>();
 
             //Call SetColor using the shader property name "_Color" and setting the color to red
             cubeRenderer.material.SetColor("_Color", Color.blue);
 
-            //Stop for 1 second
+            //Stop for 2 seconds
             StartCoroutine(walkAfterPause(2f)); //Calling pause method
             EnterBus();
 
         }
-        /*
-        else //Reset
+
+        // This is the check-out of a passenger. Will only be called if Rejsekort is used. 
+        if (distToReaderOut < 2 && bus.Rejsekort)
         {
-            //Get the Renderer component from the new cube
-            var cubeRenderer = agent.GetComponent<Renderer>();
-
-            //Call SetColor using the shader property name "_Color" and setting the color to red
-            cubeRenderer.material.SetColor("_Color", Color.white);
-        }
-        */
-        if (distToReaderOut < 2)
-        {
-            //Get the Renderer component from the new cube
-            //var cubeRenderer = agent.GetComponent<Renderer>();
-
-            //Call SetColor using the shader property name "_Color" and setting the color to red
-            //cubeRenderer.material.SetColor("_Color", Color.blue);
-
-            //Stop for 1 second
+           
+            //Stop for 2 seconds
             StartCoroutine(walkAfterPause(2f)); //Calling pause method
+            
             ExitBus();
 
         }
-        if(distToReaderOut > 2 && dist > 7)
+
+        // This ensures that the passenger will turn white again once outside of bus.
+        if (distToReaderOut > 2 && dist > 7 && bus.Rejsekort)
         {
             var cubeRenderer = agent.GetComponent<Renderer>();
             cubeRenderer.material.SetColor("_Color", Color.white);
-            
+            BT.trackBeacon = false;
         }
-        /*
-        else //Reset
+
+        // This ensures that the passenger will turn white again when BLE is used and outside bus.
+        if (dist > 7 && bus.Rejsekort == false && bus.startDriving == false)
         {
-            //Get the Renderer component from the new cube
             var cubeRenderer = agent.GetComponent<Renderer>();
-
-            //Call SetColor using the shader property name "_Color" and setting the color to red
             cubeRenderer.material.SetColor("_Color", Color.white);
+            BT.trackBeacon = false;
         }
-        */
 
-
-        if (dist < 7) //Start tracking the beacon time
+        // This ensures that passenger will head towards middle of bus for BLE when inside bus
+        if (dist < 7 && bus.Rejsekort == false && enterBus == false)
         {
+            enterBus = true;
+            EnterBus();
             BT.trackBeacon = true;
-        }
-        else { BT.trackBeacon = false; } //Turn off tracking
+            var cubeRenderer = agent.GetComponent<Renderer>();
+            cubeRenderer.material.SetColor("_Color", Color.blue);
 
-        if (dist < 2 && nearBeacon == false) //Leave the bus 
+        }
+
+        // This ensures that the passenger will head towards exit when bus isn't driving and is inside beacon range
+        if (dist < 7 && bus.Rejsekort == false && goToExit) 
         {
             
-            nearBeacon = true;
-            passengersInBus.Insert(0, 1);
-            print("Size of list " + passengersInBus.Count);
-            if (passengersInBus.Count > 0 && driveBus == false)
+            
+            var objects = GameObject.FindGameObjectsWithTag("Player"); // get obj
+            
+            BT.trackBeacon = true;
+            foreach (GameObject obj in objects)
             {
                 
-                
-                
-                agent.isStopped = true;
-                agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-                agent.transform.position = new Vector3(agent.transform.position.x, agent.transform.position.y, 63);
-                /*
-                foreach (GameObject obj in objects) {
-                    obj.GetComponent<NavMeshAgent>().isStopped = true;
-                    obj.GetComponent<NavMeshAgent>().obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-                    //agent.isStopped = true;
-                    //walkAfterPause(20f);
-                    obj.GetComponent<NavMeshAgent>().transform.position = new Vector3(agent.transform.position.x, agent.transform.position.y, 68);
-                    //agent.transform.position = new Vector3(agent.transform.position.x, agent.transform.position.y, 68);
-                }
-                */
-                if (passengersInBus.Count == 5)
+                obj.GetComponent<NavMeshAgent>().SetDestination(Exit.position);
+            }
+
+        }
+
+        if (dist < 7 && bus.Rejsekort) //Start tracking the beacon time
+        {
+            BT.trackBeacon = true;
+        } 
+        //else { BT.trackBeacon = false; } //Turn off tracking
+
+        // Only triggered when near beacon i.e. driving of bus.
+        if (dist < 2 && nearBeacon == false) // near beacon
+        {
+            nearBeacon = true; // to ensure that this statement is only triggered once per passenger
+            passengersInBus.Insert(0, 1); // Inserts the passengers into a list
+            print("Size of list " + passengersInBus.Count);
+            if (passengersInBus.Count > 0 && driveBus == false) // do this for every passenger while bus is not driving
+            {
+                agent.isStopped = true; // stops movement of agent
+                agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance; // since they stack near each other,
+                // they need to have no collision or else they can't get near the beacon nor exit the bus.
+                agent.transform.position = new Vector3(agent.transform.position.x, agent.transform.position.y, 63); // On top of beacon ish
+                // This wont be a problem since there's no collision.
+                if (passengersInBus.Count == 5) // ALL ABOARD LETS GOOO
                 {
-                    bus.startDriving = true;
-                    print("Bus should drive");
-                    driveBus = true;
+                    bus.startDriving = true; // Tell the bus to start driving
+                    print("Bus should drive"); // It is in fact driving
+                    driveBus = true; // Call drive() method 
                 }
                 
             }
-            //float number = Random.Range(1.0f, 10f);
-            //StartCoroutine(walkAfterPause(20f));
-            //ExitBus(); //Leave the bus after 5 seconds
         }
-
+        // if driving and not sure why thisIsAMess but it works so who cares and who is even looking at this comment except the spaghetti programmer
         if (driveBus && thisIsAMess == false)
         {
-            drive();
-            
+            drive(); 
         }
     }
 
     void drive()
     {
-        var objects = GameObject.FindGameObjectsWithTag("Player");
+        // Get access to all the passengers
+        var objects = GameObject.FindGameObjectsWithTag("Player"); // get obj
         
+        // For each passenger do something
         foreach (GameObject obj in objects)
         {
-            
-            var projected = obj.GetComponent<NavMeshAgent>().velocity;
+            // something
+            var projected = obj.GetComponent<NavMeshAgent>().velocity; 
             projected.y = 0f;
             obj.GetComponent<NavMeshAgent>().transform.rotation = Quaternion.LookRotation(projected);
+            //  basically ensures that the passenger is facing the same way as the bus is driving
             obj.GetComponent<NavMeshAgent>().transform.Translate(Vector3.forward * 7 * Time.deltaTime);
-            BT.trackBeacon = true;
-
+            // same speed as bus is driving
+            BT.trackBeacon = true; // keep tracking time
+            
             var cubeRenderer = obj.GetComponent<NavMeshAgent>().GetComponent<Renderer>();
 
             //Call SetColor using the shader property name "_Color" and setting the color to red
             cubeRenderer.material.SetColor("_Color", Color.blue);
 
-            if (obj.GetComponent<NavMeshAgent>().transform.position.z > 90)
+            if (obj.GetComponent<NavMeshAgent>().transform.position.z > 90) // when bus resets then do the same for passengers
             {
                 BT.trackBeacon = true;
                 obj.GetComponent<NavMeshAgent>().transform.position = new Vector3(obj.GetComponent<NavMeshAgent>().transform.position.x, obj.GetComponent<NavMeshAgent>().transform.position.y, -62f);
-                //Get the Renderer component from the new cube
+                // reset position
 
             }
-            if (bus.startDriving == false)
+            if (bus.startDriving == false) // once it is done driving
             {
+                thisIsAMess = true; // yep, checks out
                 obj.GetComponent<NavMeshAgent>().obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
-                thisIsAMess = true;
-                obj.GetComponent<NavMeshAgent>().isStopped = false;
-                obj.GetComponent<NavMeshAgent>().SetDestination(Exit.position);
-                //ExitBus();
+                // add collision again
+                obj.GetComponent<NavMeshAgent>().isStopped = false; // you are free to move again 
+                obj.GetComponent<NavMeshAgent>().SetDestination(Exit.position); // head home, young one
+                goToExit = true; // yea sure, now I can call another method idk
+                
             }
 
 
