@@ -13,6 +13,9 @@ public class BeaconTracker : MonoBehaviour
     public bool trackPassenger = false;
     public bool timerBLE = true;
 
+    public bool beacon1 = false;
+    public bool beacon2 = false;
+
     public BusMove bus;
 
     // Start is called before the first frame update
@@ -27,23 +30,35 @@ public class BeaconTracker : MonoBehaviour
     {
         if (trackBeacon) //Start tracking BeaconTime
         {
-            if (currentTime < 10 && timerBLE)
+            if (beacon1 && bus.startDriving == false)
             {
                 currentTime += 1 * Time.deltaTime;
-                countdownText.text = currentTime.ToString(gameObject.name + ": " + "Check-in " + Mathf.RoundToInt(currentTime));
-                
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 1: " + Mathf.RoundToInt(currentTime));
             }
-            if (timerBLE && bus.startDriving)
+            if (beacon2 && bus.startDriving == false)
+            {
+                currentTime += 1 * Time.deltaTime;
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 2: " + Mathf.RoundToInt(currentTime));
+            }
+            if (beacon1 && bus.startDriving)
             {
                 checkInTime += 1 * Time.deltaTime;
                 currentTime += 1 * Time.deltaTime;
-                countdownText.text = currentTime.ToString(gameObject.name + ": " + "In range " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 1: " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
+                if (checkInTime > 2)
+                {
+                    beacon1 = false;
+                    countdownText.text = currentTime.ToString(gameObject.name + ": ERROR");
+                }
             }
-            else
+            if (beacon2 && bus.startDriving)
             {
+                checkInTime += 1 * Time.deltaTime;
                 currentTime += 1 * Time.deltaTime;
-                countdownText.text = currentTime.ToString(gameObject.name + ": " + "Check-in " + Mathf.RoundToInt(currentTime));
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 2: " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
             }
+
+
         }
         else { return; } //Stop tracking BeaconTime
 

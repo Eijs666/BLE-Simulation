@@ -22,7 +22,12 @@ public class Passenger : MonoBehaviour
     public bool goToExit = false; // For BLE, just ensure they go towards exit
     public bool enterBus = false; // For BLE, to ensure EnterBus() is only called once 
 
+    public int maxCapacityBeacon = 2;
+    public int nrOfBeacons = 2;
+
     static List<int> passengersInBus = new List<int>(); // List of passengers in bus (near beacon)
+    static List<int> passengersConnectedToBeacon1 = new List<int>(); // List of passengers detected by beacon
+    static List<int> passengersConnectedToBeacon2 = new List<int>(); // List of passengers detected by beacon
 
     void Awake()
     {
@@ -102,9 +107,23 @@ public class Passenger : MonoBehaviour
             enterBus = true;
             EnterBus();
             BT.trackBeacon = true;
-            var cubeRenderer = agent.GetComponent<Renderer>();
-            cubeRenderer.material.SetColor("_Color", Color.blue);
+            if (passengersConnectedToBeacon1.Count != maxCapacityBeacon)
+            {
+                var cubeRenderer = agent.GetComponent<Renderer>();
+                cubeRenderer.material.SetColor("_Color", Color.blue);
+                passengersConnectedToBeacon1.Insert(0, 1);
+                print("passengers connected to beacon 1: " + passengersConnectedToBeacon1.Count);
+                BT.beacon1 = true;
+            } 
 
+            else if (passengersConnectedToBeacon2.Count != maxCapacityBeacon && passengersConnectedToBeacon1.Count == maxCapacityBeacon)
+            {
+                var cubeRenderer = agent.GetComponent<Renderer>();
+                cubeRenderer.material.SetColor("_Color", Color.green);
+                passengersConnectedToBeacon2.Insert(0, 1);
+                print("passengers connected to beacon 2: " + passengersConnectedToBeacon2.Count);
+                BT.beacon2 = true;
+            }
         }
 
         // This ensures that the passenger will head towards exit when bus isn't driving and is inside beacon range
