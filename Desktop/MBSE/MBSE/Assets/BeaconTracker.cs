@@ -6,15 +6,20 @@ using UnityEngine.UI;
 public class BeaconTracker : MonoBehaviour
 {
     float currentTime;
+    float checkInTime;
     public float startingTime = 0f;
     [SerializeField] Text countdownText; //Time Text
     public bool trackBeacon = false;
     public bool trackPassenger = false;
+    public bool timerBLE = true;
+
+    public BusMove bus;
 
     // Start is called before the first frame update
     void Start()
     {
         currentTime = startingTime;
+        checkInTime = startingTime;
     }
 
     // Update is called once per frame
@@ -22,8 +27,23 @@ public class BeaconTracker : MonoBehaviour
     {
         if (trackBeacon) //Start tracking BeaconTime
         {
-            currentTime += 1 * Time.deltaTime;
-            countdownText.text = currentTime.ToString("Check-in " + Mathf.RoundToInt(currentTime));
+            if (currentTime < 10 && timerBLE)
+            {
+                currentTime += 1 * Time.deltaTime;
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "Check-in " + Mathf.RoundToInt(currentTime));
+                
+            }
+            if (timerBLE && bus.startDriving)
+            {
+                checkInTime += 1 * Time.deltaTime;
+                currentTime += 1 * Time.deltaTime;
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "In range " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
+            }
+            else
+            {
+                currentTime += 1 * Time.deltaTime;
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "Check-in " + Mathf.RoundToInt(currentTime));
+            }
         }
         else { return; } //Stop tracking BeaconTime
 

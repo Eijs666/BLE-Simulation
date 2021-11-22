@@ -36,6 +36,7 @@ public class Passenger : MonoBehaviour
         if(bus.Rejsekort) // if Rejsekort is used go towards front door
         {
             agent.SetDestination(CheckIn.position);
+            BT.timerBLE = false;
         } else // else enter from any door
         {
             EnterBus();

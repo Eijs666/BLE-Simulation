@@ -12,6 +12,7 @@ public class BusMove : MonoBehaviour
     public bool isDriving = false;
     public bool Rejsekort = true;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,6 @@ public class BusMove : MonoBehaviour
         {
             StartBus();
         }
-        
 
     }
 

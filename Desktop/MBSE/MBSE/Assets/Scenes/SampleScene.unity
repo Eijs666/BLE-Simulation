@@ -193,7 +193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'BeaconTimer 4:'
+  m_Text: 'Passenger 4:'
 --- !u!222 &16488280
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -362,6 +362,8 @@ MonoBehaviour:
   countdownText: {fileID: 236278545}
   trackBeacon: 0
   trackPassenger: 0
+  timerBLE: 1
+  bus: {fileID: 1471627327}
 --- !u!1 &67687183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,7 +1116,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'BeaconTimer 3: '
+  m_Text: 'Passenger 3:'
 --- !u!222 &236278546
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2329,6 +2331,8 @@ MonoBehaviour:
   countdownText: {fileID: 1834175311}
   trackBeacon: 0
   trackPassenger: 0
+  timerBLE: 1
+  bus: {fileID: 1471627327}
 --- !u!1 &804628234
 GameObject:
   m_ObjectHideFlags: 0
@@ -3226,7 +3230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386600161}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.49, y: -4.82, z: -8.43}
+  m_LocalPosition: {x: 11.12, y: -4.48, z: 0.91}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1720973937}
@@ -3356,6 +3360,8 @@ MonoBehaviour:
   countdownText: {fileID: 1516495097}
   trackBeacon: 0
   trackPassenger: 0
+  timerBLE: 1
+  bus: {fileID: 1471627327}
 --- !u!1 &1391446138
 GameObject:
   m_ObjectHideFlags: 0
@@ -3426,7 +3432,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'BeaconTimer 2: '
+  m_Text: 'Passenger 2:'
 --- !u!222 &1391446141
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3853,6 +3859,8 @@ MonoBehaviour:
   countdownText: {fileID: 1391446140}
   trackBeacon: 0
   trackPassenger: 0
+  timerBLE: 1
+  bus: {fileID: 1471627327}
 --- !u!1 &1506087692
 GameObject:
   m_ObjectHideFlags: 0
@@ -4035,7 +4043,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'BeaconTimer 1: '
+  m_Text: 'Passenger 1: '
 --- !u!222 &1516495098
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4450,7 +4458,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'BeaconTimer 5: '
+  m_Text: 'Passenger 5:'
 --- !u!222 &1834175312
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4793,6 +4801,8 @@ MonoBehaviour:
   countdownText: {fileID: 16488279}
   trackBeacon: 0
   trackPassenger: 0
+  timerBLE: 1
+  bus: {fileID: 1471627327}
 --- !u!1 &1955559408
 GameObject:
   m_ObjectHideFlags: 0
