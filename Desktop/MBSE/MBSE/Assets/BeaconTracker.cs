@@ -27,11 +27,16 @@ public class BeaconTracker : MonoBehaviour
     {
         if (trackBeacon) //Start tracking BeaconTime
         {
-            if (bus.startDriving == false && timerBLE)
+
+            print("timerBLE: " + timerBLE);
+            print("bus.startDriving: " + bus.startDriving);
+            print("currentTime: " + currentTime);
+            if (timerBLE && bus.startDriving == false && currentTime > 23)
             {
+                checkInTime += 1 * Time.deltaTime;
                 currentTime += 1 * Time.deltaTime;
-                countdownText.text = currentTime.ToString(gameObject.name + ": " + "In range " + Mathf.RoundToInt(currentTime));
-                
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "In range " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
+
             }
             else if (timerBLE && bus.startDriving)
             {
@@ -39,11 +44,20 @@ public class BeaconTracker : MonoBehaviour
                 currentTime += 1 * Time.deltaTime;
                 countdownText.text = currentTime.ToString(gameObject.name + ": " + "In range " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
             }
+            else if (timerBLE && bus.startDriving == false && currentTime < 15)
+            {
+                currentTime += 1 * Time.deltaTime;
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "In range: " + Mathf.RoundToInt(currentTime));
+            }  
             else
             {
                 currentTime += 1 * Time.deltaTime;
-                countdownText.text = currentTime.ToString(gameObject.name + ": " + "In range " + Mathf.RoundToInt(currentTime));
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "Check-in: " + Mathf.RoundToInt(currentTime));
             }
+
+            
+
+            
         }
         else { return; } //Stop tracking BeaconTime
 

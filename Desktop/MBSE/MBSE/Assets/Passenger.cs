@@ -74,7 +74,7 @@ public class Passenger : MonoBehaviour
         {
            
             //Stop for 2 seconds
-            StartCoroutine(walkAfterPause(2f)); //Calling pause method
+            StartCoroutine(walkAfterPause(3f)); //Calling pause method
             
             ExitBus();
 
@@ -174,12 +174,21 @@ public class Passenger : MonoBehaviour
             obj.GetComponent<NavMeshAgent>().transform.Translate(Vector3.forward * 7 * Time.deltaTime);
             // same speed as bus is driving
             BT.trackBeacon = true; // keep tracking time
-            
-            var cubeRenderer = obj.GetComponent<NavMeshAgent>().GetComponent<Renderer>();
 
-            //Call SetColor using the shader property name "_Color" and setting the color to red
-            cubeRenderer.material.SetColor("_Color", Color.blue);
+            if (bus.Rejsekort)
+            {
+                var cubeRenderer = obj.GetComponent<NavMeshAgent>().GetComponent<Renderer>();
 
+                //Call SetColor using the shader property name "_Color" and setting the color to red
+                cubeRenderer.material.SetColor("_Color", Color.blue);
+            } else
+            {
+                var cubeRenderer = obj.GetComponent<NavMeshAgent>().GetComponent<Renderer>();
+
+                //Call SetColor using the shader property name "_Color" and setting the color to red
+                cubeRenderer.material.SetColor("_Color", Color.green);
+
+            }
             if (obj.GetComponent<NavMeshAgent>().transform.position.z > 90) // when bus resets then do the same for passengers
             {
                 BT.trackBeacon = true;
@@ -218,6 +227,7 @@ public class Passenger : MonoBehaviour
     //Method that allows us to stop code or delay for 1 second
     IEnumerator walkAfterPause(float waitTime)
     {
+        
         agent.isStopped = true;
         yield return new WaitForSeconds(waitTime); //Wait 1 second - then execute code under this line
         agent.isStopped = false;
