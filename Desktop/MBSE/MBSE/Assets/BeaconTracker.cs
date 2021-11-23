@@ -28,9 +28,6 @@ public class BeaconTracker : MonoBehaviour
         if (trackBeacon) //Start tracking BeaconTime
         {
 
-            print("timerBLE: " + timerBLE);
-            print("bus.startDriving: " + bus.startDriving);
-            print("currentTime: " + currentTime);
             if (timerBLE && bus.startDriving == false && currentTime > 23)
             {
                 checkInTime += 1 * Time.deltaTime;

@@ -15,12 +15,16 @@ public class Passenger : MonoBehaviour
     public Transform Exit; //Attach the exit position in the Unity Editor
     public Transform CheckIn; //Attach the Rejsekort Reader In position
     public Transform CheckOut; //Attach the Rejsekort Reader Out position
+    public Transform PointA;
+    public Transform PointB;
 
     public bool nearBeacon = false; // Used to only add one passenger 
     public bool driveBus = false; // Whether bus is driving or not
     public bool thisIsAMess = false; // Can't remember why
     public bool goToExit = false; // For BLE, just ensure they go towards exit
     public bool enterBus = false; // For BLE, to ensure EnterBus() is only called once 
+    public bool test = false;
+    public bool test1 = false;
 
     static List<int> passengersInBus = new List<int>(); // List of passengers in bus (near beacon)
 
@@ -33,6 +37,7 @@ public class Passenger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         if(bus.Rejsekort) // if Rejsekort is used go towards front door
         {
             agent.SetDestination(CheckIn.position);
@@ -48,11 +53,34 @@ public class Passenger : MonoBehaviour
     {
         //Calculate distance
         float dist = Vector3.Distance(agent.transform.position, Beacon.transform.position);
-
+        float distPointA = Vector3.Distance(agent.transform.position, PointA.transform.position);
+        float distPointB = Vector3.Distance(agent.transform.position, PointB.transform.position);
         //Calculate distance to reader In
         float distToReaderIn = Vector3.Distance(agent.transform.position, CheckIn.transform.position);
         //Calculate distance to reader Out
         float distToReaderOut = Vector3.Distance(agent.transform.position, CheckOut.transform.position);
+
+        if(distPointA < 2)
+        {
+            test = true;
+            agent.SetDestination(PointB.position); //Move AI agent (passenger) to the bus 
+        }
+        if (test)
+        {
+            if (distPointB < 2 && test1)
+            {
+                //agent.SetDestination(PointA.position);
+            } else if (test1 == false)
+            {
+                if(distPointB < 2)
+                {
+                    test1 = true;
+                } else
+                {
+                    agent.SetDestination(PointB.position); //Move AI agent (passenger) to the bus 
+                }
+            }
+        }
 
         // This is the check-in of a passenger. Will only be called if Rejsekort is used. 
         if (distToReaderIn < 2 && bus.Rejsekort)
@@ -166,6 +194,10 @@ public class Passenger : MonoBehaviour
         // For each passenger do something
         foreach (GameObject obj in objects)
         {
+            if(obj.name != "Obstacle")
+            {
+
+            
             // something
             var projected = obj.GetComponent<NavMeshAgent>().velocity; 
             projected.y = 0f;
@@ -206,7 +238,7 @@ public class Passenger : MonoBehaviour
                 goToExit = true; // yea sure, now I can call another method idk
                 
             }
-
+            }
 
         }
         
