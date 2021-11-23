@@ -27,13 +27,13 @@ public class BeaconTracker : MonoBehaviour
     {
         if (trackBeacon) //Start tracking BeaconTime
         {
-            if (currentTime < 10 && timerBLE)
+            if (bus.startDriving == false && timerBLE)
             {
                 currentTime += 1 * Time.deltaTime;
-                countdownText.text = currentTime.ToString(gameObject.name + ": " + "Check-in " + Mathf.RoundToInt(currentTime));
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "In range " + Mathf.RoundToInt(currentTime));
                 
             }
-            if (timerBLE && bus.startDriving)
+            else if (timerBLE && bus.startDriving)
             {
                 checkInTime += 1 * Time.deltaTime;
                 currentTime += 1 * Time.deltaTime;
@@ -42,7 +42,7 @@ public class BeaconTracker : MonoBehaviour
             else
             {
                 currentTime += 1 * Time.deltaTime;
-                countdownText.text = currentTime.ToString(gameObject.name + ": " + "Check-in " + Mathf.RoundToInt(currentTime));
+                countdownText.text = currentTime.ToString(gameObject.name + ": " + "In range " + Mathf.RoundToInt(currentTime));
             }
         }
         else { return; } //Stop tracking BeaconTime
