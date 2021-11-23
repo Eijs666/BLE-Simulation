@@ -32,23 +32,45 @@ public class BeaconTracker : MonoBehaviour
         {
             if (beacon1 && bus.startDriving == false)
             {
-                currentTime += 1 * Time.deltaTime;
-                countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 1: " + Mathf.RoundToInt(currentTime));
+                if(checkInTime > 0)
+                {
+                    currentTime += 1 * Time.deltaTime;
+                    checkInTime += 1 * Time.deltaTime;
+                    countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 1: " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
+                } else
+                {
+                    currentTime += 1 * Time.deltaTime;
+                    countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 1: " + Mathf.RoundToInt(currentTime));
+                }
+                
             }
             if (beacon2 && bus.startDriving == false)
             {
-                currentTime += 1 * Time.deltaTime;
-                countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 2: " + Mathf.RoundToInt(currentTime));
+                if (checkInTime > 0)
+                {
+                    currentTime += 1 * Time.deltaTime;
+                    checkInTime += 1 * Time.deltaTime;
+                    countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 2: " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
+                } else
+                {
+                    currentTime += 1 * Time.deltaTime;
+                    countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 2: " + Mathf.RoundToInt(currentTime));
+                } 
             }
             if (beacon1 && bus.startDriving)
             {
-                checkInTime += 1 * Time.deltaTime;
-                currentTime += 1 * Time.deltaTime;
-                countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 1: " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
                 if (checkInTime > 2)
                 {
-                    beacon1 = false;
-                    countdownText.text = currentTime.ToString(gameObject.name + ": ERROR");
+                    //beacon1 = false;
+                    currentTime += 1 * Time.deltaTime;
+                    checkInTime += 1 * Time.deltaTime;
+                    countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 2: " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
+                } else
+                {
+                    checkInTime += 1 * Time.deltaTime;
+                    currentTime += 1 * Time.deltaTime;
+                    countdownText.text = currentTime.ToString(gameObject.name + ": " + "beacon 1: " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
+
                 }
             }
             if (beacon2 && bus.startDriving)

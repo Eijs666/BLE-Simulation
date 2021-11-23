@@ -55,9 +55,9 @@
   <ItemGroup>
     <Compile Include="Assets\Passenger.cs" />
     <Compile Include="Assets\BeaconTracker.cs" />
-    <Compile Include="Assets\Beacon.cs" />
-    <Compile Include="Assets\BusMove.cs" />
     <Compile Include="Assets\PassengerTracker.cs" />
+    <Compile Include="Assets\BusMove.cs" />
+    <Compile Include="Assets\Beacon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -193,11 +193,6 @@ public class Passenger : MonoBehaviour
             obj.GetComponent<NavMeshAgent>().transform.Translate(Vector3.forward * 7 * Time.deltaTime);
             // same speed as bus is driving
             BT.trackBeacon = true; // keep tracking time
-            
-            var cubeRenderer = obj.GetComponent<NavMeshAgent>().GetComponent<Renderer>();
-
-            //Call SetColor using the shader property name "_Color" and setting the color to red
-            cubeRenderer.material.SetColor("_Color", Color.blue);
 
             if (obj.GetComponent<NavMeshAgent>().transform.position.z > 90) // when bus resets then do the same for passengers
             {
