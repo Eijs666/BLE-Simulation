@@ -289,6 +289,11 @@ MonoBehaviour:
   enterBus: 0
   test: 0
   test1: 0
+  test2: 0
+  radius: 12
+  distPointA: 0
+  distPointB: 0
+  distPointC: 0
 --- !u!65 &66023282
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -363,12 +368,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08958a194637c94a899b5faa2f96efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingTime: 0
+  currentDistance: 0
+  startingDistance: 0
   countdownText: {fileID: 236278545}
   trackBeacon: 0
+  TimeToCheckIn: 5
   trackPassenger: 0
   timerBLE: 1
+  distCalc: 0
+  distPointA: 0
+  distPointB: 0
   bus: {fileID: 1471627327}
+  passenger: {fileID: 0}
 --- !u!1 &67687183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2438,6 +2449,11 @@ MonoBehaviour:
   enterBus: 0
   test: 0
   test1: 0
+  test2: 0
+  radius: 12
+  distPointA: 0
+  distPointB: 0
+  distPointC: 0
 --- !u!65 &710694289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2512,12 +2528,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08958a194637c94a899b5faa2f96efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingTime: 0
+  currentDistance: 0
+  startingDistance: 0
   countdownText: {fileID: 1834175311}
   trackBeacon: 0
+  TimeToCheckIn: 5
   trackPassenger: 0
   timerBLE: 1
+  distCalc: 0
+  distPointA: 0
+  distPointB: 0
   bus: {fileID: 1471627327}
+  passenger: {fileID: 0}
 --- !u!1 &800890021
 GameObject:
   m_ObjectHideFlags: 0
@@ -3544,6 +3566,11 @@ MonoBehaviour:
   enterBus: 0
   test: 0
   test1: 0
+  test2: 0
+  radius: 12
+  distPointA: 0
+  distPointB: 0
+  distPointC: 0
 --- !u!195 &1386600164
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3640,12 +3667,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08958a194637c94a899b5faa2f96efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingTime: 0
+  currentDistance: 0
+  startingDistance: 0
   countdownText: {fileID: 1516495097}
   trackBeacon: 0
+  TimeToCheckIn: 5
   trackPassenger: 0
   timerBLE: 1
+  distCalc: 0
+  distPointA: 0
+  distPointB: 0
   bus: {fileID: 1471627327}
+  passenger: {fileID: 0}
 --- !u!1 &1391446138
 GameObject:
   m_ObjectHideFlags: 0
@@ -4070,6 +4103,11 @@ MonoBehaviour:
   enterBus: 0
   test: 0
   test1: 0
+  test2: 0
+  radius: 12
+  distPointA: 0
+  distPointB: 0
+  distPointC: 0
 --- !u!65 &1502195586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4144,12 +4182,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08958a194637c94a899b5faa2f96efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingTime: 0
+  currentDistance: 0
+  startingDistance: 0
   countdownText: {fileID: 1391446140}
   trackBeacon: 0
+  TimeToCheckIn: 5
   trackPassenger: 0
   timerBLE: 1
+  distCalc: 0
+  distPointA: 0
+  distPointB: 0
   bus: {fileID: 1471627327}
+  passenger: {fileID: 0}
 --- !u!1 &1506087692
 GameObject:
   m_ObjectHideFlags: 0
@@ -5116,6 +5160,11 @@ MonoBehaviour:
   enterBus: 0
   test: 0
   test1: 0
+  test2: 0
+  radius: 12
+  distPointA: 0
+  distPointB: 0
+  distPointC: 0
 --- !u!65 &1908950040
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5190,12 +5239,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08958a194637c94a899b5faa2f96efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingTime: 0
+  currentDistance: 0
+  startingDistance: 0
   countdownText: {fileID: 16488279}
   trackBeacon: 0
+  TimeToCheckIn: 5
   trackPassenger: 0
   timerBLE: 1
+  distCalc: 0
+  distPointA: 0
+  distPointB: 0
   bus: {fileID: 1471627327}
+  passenger: {fileID: 0}
 --- !u!1 &1955559408
 GameObject:
   m_ObjectHideFlags: 0
@@ -5436,7 +5491,7 @@ GameObject:
   - component: {fileID: 2056525303}
   - component: {fileID: 2056525302}
   m_Layer: 0
-  m_Name: Obstacle
+  m_Name: Bystander
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5468,12 +5523,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08958a194637c94a899b5faa2f96efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingTime: 0
+  currentDistance: 0
+  startingDistance: 0
   countdownText: {fileID: 103686594}
   trackBeacon: 0
+  TimeToCheckIn: 5
   trackPassenger: 0
   timerBLE: 1
+  distCalc: 0
+  distPointA: 0
+  distPointB: 0
   bus: {fileID: 1471627327}
+  passenger: {fileID: 0}
 --- !u!195 &2056525303
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5525,6 +5586,11 @@ MonoBehaviour:
   enterBus: 0
   test: 0
   test1: 0
+  test2: 0
+  radius: 12
+  distPointA: 0
+  distPointB: 0
+  distPointC: 0
 --- !u!65 &2056525305
 BoxCollider:
   m_ObjectHideFlags: 0
