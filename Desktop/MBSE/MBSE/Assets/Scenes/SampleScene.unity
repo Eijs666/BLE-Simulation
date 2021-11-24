@@ -281,6 +281,7 @@ MonoBehaviour:
   CheckOut: {fileID: 608559985}
   PointA: {fileID: 1697238637}
   PointB: {fileID: 152059309}
+  PointC: {fileID: 800890022}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0
@@ -1074,7 +1075,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152059308}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2429,6 +2430,7 @@ MonoBehaviour:
   CheckOut: {fileID: 608559985}
   PointA: {fileID: 1697238637}
   PointB: {fileID: 152059309}
+  PointC: {fileID: 800890022}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0
@@ -2516,6 +2518,101 @@ MonoBehaviour:
   trackPassenger: 0
   timerBLE: 1
   bus: {fileID: 1471627327}
+--- !u!1 &800890021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 800890022}
+  - component: {fileID: 800890025}
+  - component: {fileID: 800890024}
+  - component: {fileID: 800890023}
+  m_Layer: 0
+  m_Name: PointC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &800890022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800890021}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 10.37, y: 1.86, z: 28.29}
+  m_LocalScale: {x: 0.5, y: 2, z: 0.2}
+  m_Children: []
+  m_Father: {fileID: 1123938106}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &800890023
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800890021}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &800890024
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800890021}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e46ec3cd0308fa040b0933a237af9480, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &800890025
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800890021}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &804628234
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,6 +3017,7 @@ Transform:
   - {fileID: 129538963}
   - {fileID: 152059309}
   - {fileID: 1697238637}
+  - {fileID: 800890022}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3442,6 +3540,7 @@ MonoBehaviour:
   CheckOut: {fileID: 608559985}
   PointA: {fileID: 1697238637}
   PointB: {fileID: 152059309}
+  PointC: {fileID: 800890022}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0
@@ -3967,6 +4066,7 @@ MonoBehaviour:
   CheckOut: {fileID: 608559985}
   PointA: {fileID: 1697238637}
   PointB: {fileID: 152059309}
+  PointC: {fileID: 800890022}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0
@@ -5009,6 +5109,7 @@ MonoBehaviour:
   CheckOut: {fileID: 608559985}
   PointA: {fileID: 1697238637}
   PointB: {fileID: 152059309}
+  PointC: {fileID: 800890022}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0
@@ -5369,7 +5470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingTime: 0
-  countdownText: {fileID: 1834175311}
+  countdownText: {fileID: 103686594}
   trackBeacon: 0
   trackPassenger: 0
   timerBLE: 1
@@ -5417,6 +5518,7 @@ MonoBehaviour:
   CheckOut: {fileID: 608559985}
   PointA: {fileID: 1697238637}
   PointB: {fileID: 152059309}
+  PointC: {fileID: 800890022}
   nearBeacon: 0
   driveBus: 0
   thisIsAMess: 0

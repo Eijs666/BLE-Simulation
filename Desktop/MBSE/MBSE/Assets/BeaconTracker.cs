@@ -27,13 +27,13 @@ public class BeaconTracker : MonoBehaviour
     {
         if (trackBeacon) //Start tracking BeaconTime
         {
-
+            // timerBLE = using BLE (rejsekort = false)
+            // bus.startDriving == false ---> bus is not driving
             if (timerBLE && bus.startDriving == false && currentTime > 23)
             {
                 checkInTime += 1 * Time.deltaTime;
                 currentTime += 1 * Time.deltaTime;
                 countdownText.text = currentTime.ToString(gameObject.name + ": " + "In range " + Mathf.RoundToInt(currentTime) + " Check in: " + Mathf.RoundToInt(checkInTime));
-
             }
             else if (timerBLE && bus.startDriving)
             {
