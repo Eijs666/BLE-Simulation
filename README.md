@@ -5,11 +5,11 @@ After Unity Hub has finished, a Unity Version is needed to be installed (under I
 
 1) Clone the project from github: https://github.com/Eijs666/BLE-Simulation.git 
 
-	Depending on which simulation you want you should use the following commands: 
-	git clone --branch default https://github.com/Eijs666/BLE-Simulation.git (default simulation, rejsekort vs BLE).
-	git clone --branch signal_strength https://github.com/Eijs666/BLE-Simulation.git (simulation of signal strength)
-	git clone --branch stressTest https://github.com/Eijs666/BLE-Simulation.git (simulation of stress test and failure of beacon)
-	git clone --branch unintended https://github.com/Eijs666/BLE-Simulation.git (simulation of how to handle unintended check-in)
+Depending on which simulation you want you should use the following commands: 
+git clone --branch default https://github.com/Eijs666/BLE-Simulation.git (default simulation, rejsekort vs BLE).
+git clone --branch signal_strength https://github.com/Eijs666/BLE-Simulation.git (simulation of signal strength)
+git clone --branch stressTest https://github.com/Eijs666/BLE-Simulation.git (simulation of stress test and failure of beacon)
+git clone --branch unintended https://github.com/Eijs666/BLE-Simulation.git (simulation of how to handle unintended check-in)
 
 2) Open Unity Hub and add a project. Navigate to where the project is saved and add it. 
 
