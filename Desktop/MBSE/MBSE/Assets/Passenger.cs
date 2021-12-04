@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI; //Implementing the AI library
@@ -15,12 +16,17 @@ public class Passenger : MonoBehaviour
     public Transform Exit; //Attach the exit position in the Unity Editor
     public Transform CheckIn; //Attach the Rejsekort Reader In position
     public Transform CheckOut; //Attach the Rejsekort Reader Out position
+    public Transform CheckHidden;
 
     public bool nearBeacon = false; // Used to only add one passenger 
     public bool driveBus = false; // Whether bus is driving or not
     public bool thisIsAMess = false; // Can't remember why
     public bool goToExit = false; // For BLE, just ensure they go towards exit
     public bool enterBus = false; // For BLE, to ensure EnterBus() is only called once 
+    public bool counterBool = false;
+    public bool justOnce = false;
+    public bool justTwice = false;
+    public bool justThrice = false;
 
     static List<int> passengersInBus = new List<int>(); // List of passengers in bus (near beacon)
 
@@ -49,11 +55,13 @@ public class Passenger : MonoBehaviour
         //Calculate distance
         float dist = Vector3.Distance(agent.transform.position, Beacon.transform.position);
 
+        float distHidden = Vector3.Distance(agent.transform.position, CheckHidden.transform.position);
         //Calculate distance to reader In
         float distToReaderIn = Vector3.Distance(agent.transform.position, CheckIn.transform.position);
         //Calculate distance to reader Out
         float distToReaderOut = Vector3.Distance(agent.transform.position, CheckOut.transform.position);
 
+        
         // This is the check-in of a passenger. Will only be called if Rejsekort is used. 
         if (distToReaderIn < 2 && bus.Rejsekort)
         {
@@ -65,6 +73,12 @@ public class Passenger : MonoBehaviour
 
             //Stop for 2 seconds
             StartCoroutine(walkAfterPause(2f)); //Calling pause method
+            if(justOnce == false)
+            {
+                BT.addPassenger = true;
+                justOnce = true;
+            }
+            
             EnterBus();
 
         }
@@ -72,12 +86,18 @@ public class Passenger : MonoBehaviour
         // This is the check-out of a passenger. Will only be called if Rejsekort is used. 
         if (distToReaderOut < 2 && bus.Rejsekort)
         {
+
            
             //Stop for 2 seconds
             StartCoroutine(walkAfterPause(3f)); //Calling pause method
             
+            if (justTwice == false)
+            {
+                BT.removePassenger = true;
+                justTwice = true;
+            }
             ExitBus();
-
+            
         }
 
         // This ensures that the passenger will turn white again once outside of bus.
@@ -89,12 +109,24 @@ public class Passenger : MonoBehaviour
         }
 
         // This ensures that the passenger will turn white again when BLE is used and outside bus.
-        if (dist > 7 && bus.Rejsekort == false && bus.startDriving == false)
+        else if (dist > 7 && bus.Rejsekort == false && bus.startDriving == false && goToExit == false)
         {
             var cubeRenderer = agent.GetComponent<Renderer>();
             cubeRenderer.material.SetColor("_Color", Color.white);
+            
+            
+            
             BT.trackBeacon = false;
         }
+        if(distHidden < 2 && bus.Rejsekort == false)
+        {
+            if (justThrice == false)
+            {
+                BT.removePassenger = true;
+                justThrice = true;
+            }
+        }
+
 
         // This ensures that passenger will head towards middle of bus for BLE when inside bus
         if (dist < 7 && bus.Rejsekort == false && enterBus == false)
@@ -111,7 +143,7 @@ public class Passenger : MonoBehaviour
         if (dist < 7 && bus.Rejsekort == false && goToExit) 
         {
             
-            
+            /*
             var objects = GameObject.FindGameObjectsWithTag("Player"); // get obj
             
             BT.trackBeacon = true;
@@ -120,20 +152,28 @@ public class Passenger : MonoBehaviour
                 
                 obj.GetComponent<NavMeshAgent>().SetDestination(Exit.position);
             }
-
+            */
         }
 
         if (dist < 7 && bus.Rejsekort) //Start tracking the beacon time
         {
             BT.trackBeacon = true;
-        } 
+        }
         //else { BT.trackBeacon = false; } //Turn off tracking
-
         // Only triggered when near beacon i.e. driving of bus.
         if (dist < 2 && nearBeacon == false) // near beacon
         {
             nearBeacon = true; // to ensure that this statement is only triggered once per passenger
             passengersInBus.Insert(0, 1); // Inserts the passengers into a list
+            
+            if (justOnce == false)
+            {
+                BT.addPassenger = true;
+                justOnce = true;
+            }
+            
+
+            //BT.pasInBus.Insert(0, 1);
             print("Size of list " + passengersInBus.Count);
             if (passengersInBus.Count > 0 && driveBus == false) // do this for every passenger while bus is not driving
             {
@@ -232,6 +272,5 @@ public class Passenger : MonoBehaviour
         yield return new WaitForSeconds(waitTime); //Wait 1 second - then execute code under this line
         agent.isStopped = false;
     }
-
 
 }

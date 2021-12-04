@@ -60,6 +60,10 @@
     <Compile Include="Assets\Beacon.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Resources\test.txt" />
+    <None Include="Assets\Resources\testCounter.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.21f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
